@@ -9,7 +9,6 @@ import { Movie } from 'src/app/model/movie';
 export class MovieListComponent {
   title: string = 'Movie List';
   movies: Movie[] | undefined;
-  newMovie: Movie = new Movie();
 
   ngOnInit(): void {
     this.movies = [
