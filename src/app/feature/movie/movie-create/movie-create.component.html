@@ -2,12 +2,6 @@
   <h1>{{ title }}</h1>
   <table>
     <tr>
-      <td>Id:</td>
-      <td>
-        <input [(ngModel)]="newMovie.id" type="text" />
-      </td>
-    </tr>
-    <tr>
       <td>Title:</td>
       <td>
         <input [(ngModel)]="newMovie.title" type="text" />
@@ -22,7 +16,11 @@
     <tr>
       <td>Rating:</td>
       <td>
-        <input [(ngModel)]="newMovie.rating" type="text" />
+        <select [(ngModel)]="newMovie.rating" class="rounded">
+          <option *ngFor="let rating of ratings" [ngValue]="rating">
+            {{ rating }}
+          </option>
+        </select>
       </td>
     </tr>
     <tr>

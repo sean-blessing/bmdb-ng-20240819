@@ -15,16 +15,39 @@
       <th>Action</th>
     </thead>
     <tbody>
-      <tr *ngFor="let m of movies; let i = index">
+      <!--       <tr *ngFor="let m of movies; let i = index">   -->
+      <tr *ngFor="let m of movies">
         <td>{{ m.id }}</td>
         <td>{{ m.title }}</td>
         <td>{{ m.year }}</td>
         <td>{{ m.rating }}</td>
         <td>{{ m.director }}</td>
         <td>
-          <button (click)="delete(i)" class="btn btn-sm btn-danger">
-            Delete
-          </button>
+          <a routerLink="/movie-detail/{{ m.id }}">
+            <img
+              src="assets/details.png"
+              width="20"
+              height="20"
+              title="Movie Details"
+            />
+          </a> | 
+          <a routerLink="/movie-edit/{{ m.id }}">
+            <img
+              src="assets/pencil-icon.png"
+              width="20"
+              height="20"
+              title="Edit Movie"
+            />
+          </a> | 
+          <a>
+            <img
+              src="assets/delete.jpg"
+              width="20"
+              height="20"
+              title="Delete Movie"
+              (click)="delete(m.id)"
+            />
+          </a>
         </td>
       </tr>
     </tbody>
