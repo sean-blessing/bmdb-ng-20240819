@@ -1,23 +1,24 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Movie } from 'src/app/model/movie';
+import { MovieService } from 'src/app/service/movie.service';
 
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
-  styleUrls: ['./movie-list.component.css']
+  styleUrls: ['./movie-list.component.css'],
 })
 export class MovieListComponent {
   title: string = 'Movie List';
   movies: Movie[] | undefined;
+  subscription!: Subscription;
+
+  constructor(private movieSvc: MovieService) {}
 
   ngOnInit(): void {
-    this.movies = [
-      new Movie(1,'Test Movie1', 2020, 'PG', 'Sam Baimy'),
-      new Movie(2,'Test Movie2', 1991, 'PG=13', 'George Pucas'),
-      new Movie(3,'Test Movie3', 2004, 'R', 'Naivin Johnson'),
-      new Movie(4,'Test Movie4', 1989, 'G', 'Alec Boowin'),
-      new Movie(5,'Test Movie5', 1016, 'PG', 'Sally Tally'),
-    ];
+    this.subscription = this.movieSvc.list().subscribe((resp) => {
+      this.movies = resp;
+    });
   }
 
   delete(idx: number): void {
