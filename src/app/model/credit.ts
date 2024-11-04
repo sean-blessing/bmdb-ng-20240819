@@ -13,7 +13,7 @@ export class Credit {
     actor: Actor = new Actor(),
     role: string = ''
   ) {
-    this.id = 0;
+    this.id = id;
     this.movie = movie;
     this.actor = actor;
     this.role = role;

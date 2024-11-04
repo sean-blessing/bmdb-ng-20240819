@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Actor } from 'src/app/model/actor';
+import { ActorService } from 'src/app/service/actor.service';
 
 @Component({
   selector: 'app-actor-list',
@@ -9,15 +11,28 @@ import { Actor } from 'src/app/model/actor';
 export class ActorListComponent implements OnInit {
   title: string = 'Actor List';
   actors: Actor[] | undefined;
+  subscription!: Subscription;
+
+  constructor(private actorSvc: ActorService) {}
 
   ngOnInit(): void {
-    this.actors = [
-      new Actor(1, 'Jim', 'Neighbors', 'M', new Date(1900, 5, 5)),
-      new Actor(2, 'Gina', 'Shelly', 'F', new Date(1998, 10, 31)),
-    ];
+    this.subscription = this.actorSvc.list().subscribe((resp) => {
+      this.actors = resp;
+    });
   }
 
-  delete(idx: number): void {
-    this.actors?.splice(idx, 1);
+  delete(id: number): void {
+    this.subscription = this.actorSvc.delete(id).subscribe({
+      next: () => {
+        // refresh actor list.
+        this.subscription = this.actorSvc.list().subscribe((resp) => {
+          this.actors = resp;
+        });
+      },
+      error: (err) => {
+        console.error('Error deleting actor for id:' + id);
+        alert('Error deleting actor for id:' + id);
+      },
+    });
   }
 }

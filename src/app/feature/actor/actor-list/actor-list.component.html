@@ -14,15 +14,38 @@
       <th>Action</th>
     </thead>
     <tbody>
-      <tr *ngFor="let a of actors; let i = index">
+      <!--       <tr *ngFor="let m of actors; let i = index">   -->
+      <tr *ngFor="let a of actors">
         <td>{{ a.id }}</td>
-        <td>{{ a.firstName + " " + a.lastName }}</td>
-        <td>{{ a.gender }}</td>
+        <td>{{ a.lastName + ", " + a.firstName }}</td>
+        <td>{{ a.gender}}</td>
         <td>{{ a.birthDate }}</td>
         <td>
-          <button (click)="delete(i)" class="btn btn-sm btn-danger">
-            Delete
-          </button>
+          <a routerLink="/actor-detail/{{ a.id }}">
+            <img
+              src="assets/details.png"
+              width="20"
+              height="20"
+              title="Actor Details"
+            />
+          </a> | 
+          <a routerLink="/actor-edit/{{ a.id }}">
+            <img
+              src="assets/pencil-icon.png"
+              width="20"
+              height="20"
+              title="Edit Actor"
+            />
+          </a> | 
+          <a>
+            <img
+              src="assets/delete.jpg"
+              width="20"
+              height="20"
+              title="Delete Actor"
+              (click)="delete(a.id)"
+            />
+          </a>
         </td>
       </tr>
     </tbody>

@@ -1,23 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Credit } from 'src/app/model/credit';
+import { CreditService } from 'src/app/service/credit.service';
 
 @Component({
   selector: 'app-credit-list',
   templateUrl: './credit-list.component.html',
   styleUrls: ['./credit-list.component.css']
 })
-export class CreditListComponent {
+export class CreditListComponent implements OnInit, OnDestroy {
   title: string = 'Credit List';
   credits: Credit[] | undefined;
+  subscription!: Subscription;
+
+  constructor(private creditSvc: CreditService) {}
 
   ngOnInit(): void {
-    this.credits = [
-      // new Credit(1, 'Jim', 'Neighbors', 'M', new Date(1900, 5, 5)),
-      // new Credit(2, 'Gina', 'Shelly', 'F', new Date(1998, 10, 31)),
-    ];
+    this.subscription = this.creditSvc.list().subscribe((resp) => {
+      this.credits = resp;
+    });
   }
 
-  delete(idx: number): void {
-    this.credits?.splice(idx, 1);
+  delete(id: number): void {
+    this.subscription = this.creditSvc.delete(id).subscribe({
+      next: () => {
+        // refresh credit list.
+        this.subscription = this.creditSvc.list().subscribe((resp) => {
+          this.credits = resp;
+          // add code to loop thru credits and populate the movie and actor for each
+        });
+      },
+      error: (err) => {
+        console.error('Error deleting credit for id:' + id);
+        alert('Error deleting credit for id:' + id);
+      },
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

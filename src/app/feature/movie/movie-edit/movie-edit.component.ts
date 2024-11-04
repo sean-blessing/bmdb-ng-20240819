@@ -14,6 +14,7 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   movieId!: number;
   movie!: Movie;
   subscription!: Subscription;
+  ratings: string[] = ['G', 'PG', 'PG-13', 'R', 'NC-17'];
 
   constructor(
     private movieSvc: MovieService,
