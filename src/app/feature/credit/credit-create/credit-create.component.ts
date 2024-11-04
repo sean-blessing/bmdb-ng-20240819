@@ -62,7 +62,7 @@ export class CreditCreateComponent implements OnInit, OnDestroy {
       },
     });
   }
-  // EXPLAIN
+  
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
