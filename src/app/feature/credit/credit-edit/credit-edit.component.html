@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div class="p-4">
   <span class="component-title"
     ><h1>{{ title }}</h1></span
@@ -8,7 +9,11 @@
         <tr>
           <td>Movie:</td>
           <td>
-            <select [(ngModel)]="credit.movie" class="rounded" [compareWith]="compMovie">
+            <select
+              [(ngModel)]="credit.movie"
+              class="rounded"
+              [compareWith]="compMovie"
+            >
               <option *ngFor="let m of movies" [ngValue]="m">
                 {{ m.title }}
               </option>
@@ -18,7 +23,11 @@
         <tr>
           <td>Actor:</td>
           <td>
-            <select [(ngModel)]="credit.actor" class="rounded" [compareWith]="compActor">
+            <select
+              [(ngModel)]="credit.actor"
+              class="rounded"
+              [compareWith]="compActor"
+            >
               <option *ngFor="let a of actors" [ngValue]="a">
                 {{ a.lastName + ", " + a.firstName }}
               </option>
