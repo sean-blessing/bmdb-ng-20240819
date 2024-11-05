@@ -23,6 +23,8 @@ export class MovieEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // 11/05/24 - consider combining getting movieID and getting movie!
+    
     // get id from the url
     this.actRoute.params.subscribe((parms) => {
       this.movieId = parms['id'];
