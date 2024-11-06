@@ -30,4 +30,8 @@ export class CreditService {
   edit(credit: Credit): Observable<Credit> {
     return this.http.put(URL + '/' + credit.id, credit) as Observable<Credit>;
   }
+
+  getByMovieId(movieId: number): Observable<Credit[]> {
+    return this.http.get(URL+"/movie-credits/"+movieId) as Observable<Credit[]>;
+  }
 }
