@@ -49,6 +49,14 @@
               title="Delete Movie"
               (click)="delete(m.id)"
             />
+          </a> | 
+          <a routerLink="/movie-credit/{{ m.id }}">
+            <img
+              src="assets/lines.png"
+              width="20"
+              height="20"
+              title="Movie Credits"
+            />
           </a>
         </td>
       </tr>
