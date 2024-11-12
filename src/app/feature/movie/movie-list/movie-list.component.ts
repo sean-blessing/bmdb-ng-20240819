@@ -11,9 +11,11 @@ import { SystemService } from 'src/app/service/system.service';
 })
 export class MovieListComponent implements OnInit, OnDestroy {
   title: string = 'Movie List';
-  movies: Movie[] | undefined;
+  movies!: Movie[];
   subscription!: Subscription;
   welcomeName: string = "";
+  sortOrder: string = 'asc';
+  sortCriteria: string = 'id';
 
   constructor(private movieSvc: MovieService,
               private sysSvc: SystemService
@@ -43,5 +45,12 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  sortBy(column: string): void {
+    if (column == this.sortCriteria) {
+      this.sortOrder = (this.sortOrder == "desc") ? "asc" : "desc";
+    }
+    this.sortCriteria = column;
   }
 }
